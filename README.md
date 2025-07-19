@@ -15,4 +15,4 @@ Movie App Frontend est une application web développée avec React. Elle permet 
 
 1. Cloner le dépôt :
    ```bash
-   git clone https://github.com/Jackyno/movie_app_frontend.git
+   git clone https://github.com/Jackyno/Projet_partII.git
