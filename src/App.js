@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import MovieList from './components/MovieList';
+import AddMovieForm from './components/AddMovieForm';
+import About from './components/About';
 
 function App() {
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/movies')
+      .then((res) => res.json())
+      .then((data) => setMovies(data));
+  }, []);
+
+  const addMovie = (newMovie) => {
+    setMovies([...movies, newMovie]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<MovieList movies={movies} />} />
+        <Route path="/add" element={<AddMovieForm addMovie={addMovie} />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
   );
 }
